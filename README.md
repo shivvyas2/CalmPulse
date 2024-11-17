@@ -1,2 +1,4 @@
-# CS639-Team1
-Team project for CS 639 - Mobile Applications Development
+# Team 1 - Final Project Proposal
+
+[Just Breathe ](https://docs.google.com/document/d/1trbgePShqdI7tZUK6W-iPVXkXvEWQn_5E7LysWWdPug/edit?tab=t.0)
+
