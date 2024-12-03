@@ -26,7 +26,12 @@ fun CalmPulse(){
             )
         }
         composable("ThirdWelcomeScreen"){
-            ThirdWelcomeScreen()
+            ThirdWelcomeScreen(
+                onNavigate = {navController.navigate("Login")}
+            )
+        }
+        composable("Login"){
+            Login()
         }
     }
 

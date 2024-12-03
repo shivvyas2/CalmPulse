@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.sp
 import com.example.calmpulse.ui.theme.CalmPulseTheme
 
 @Composable
-fun ThirdWelcomeScreen(modifier: Modifier = Modifier){
+fun ThirdWelcomeScreen(modifier: Modifier = Modifier, onNavigate: () -> Unit){
 
 
         Column(
@@ -33,7 +33,7 @@ fun ThirdWelcomeScreen(modifier: Modifier = Modifier){
                 fontSize = 24.sp,
                 modifier = Modifier.padding(bottom = 24.dp)
             )
-            Button(onClick = {  }) {
+            Button(onClick = { onNavigate() }) {
                 Text(text = "Let's Go!")
             }
 
@@ -43,5 +43,5 @@ fun ThirdWelcomeScreen(modifier: Modifier = Modifier){
 @Preview(showBackground = true)
 @Composable
 fun PreviewThirdWelcomeScreen() {
-    ThirdWelcomeScreen(modifier = Modifier)
+    ThirdWelcomeScreen(modifier = Modifier, onNavigate = {})
 }
