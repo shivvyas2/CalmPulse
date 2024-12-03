@@ -8,6 +8,7 @@ import androidx.navigation.compose.rememberNavController
 
 @Composable
 fun CalmPulse(){
+
     val navController = rememberNavController()
 
     NavHost(

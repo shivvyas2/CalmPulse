@@ -1,5 +1,6 @@
 package com.example.calmpulse.ui
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -18,15 +19,14 @@ import com.example.calmpulse.ui.theme.CalmPulseTheme
 
 @Composable
 fun FirstWelcomeScreen(modifier: Modifier = Modifier, onNavigate: () -> Unit){
-    MaterialTheme {
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
+            verticalArrangement = Arrangement.Center,
 
+        ) {
 
             Text(
                 text = "Health is Wealth",
@@ -38,7 +38,6 @@ fun FirstWelcomeScreen(modifier: Modifier = Modifier, onNavigate: () -> Unit){
 
             }
         }
-    }
 }
 
 @Preview(showBackground = true)

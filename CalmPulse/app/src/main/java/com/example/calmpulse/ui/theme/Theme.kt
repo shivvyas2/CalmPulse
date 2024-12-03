@@ -5,24 +5,27 @@ import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
+
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.graphics.Color
+
 
 private val DarkColorScheme = darkColorScheme(
     primary = LightGreen,
     secondary = PurpleGrey80,
-    tertiary = Pink80
+    tertiary = Pink80,
+    background = LightGreen
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = White,
+    background = LightGreen,
+    primary = LightGreen,
     onPrimary = Black,
     secondary = PurpleGrey40,
     tertiary = Pink40,
-    background = LightGreen
+
+
 
     /* Other default colors to override
     background = Color(0xFFFFFBFE),
@@ -38,8 +41,6 @@ private val LightColorScheme = lightColorScheme(
 @Composable
 fun CalmPulseTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
     val colorScheme = if(darkTheme) {

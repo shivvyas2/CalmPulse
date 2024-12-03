@@ -13,11 +13,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.calmpulse.ui.theme.CalmPulseTheme
 
 @Composable
 fun ThirdWelcomeScreen(modifier: Modifier = Modifier){
 
-    MaterialTheme {
+
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -35,7 +36,7 @@ fun ThirdWelcomeScreen(modifier: Modifier = Modifier){
             Button(onClick = {  }) {
                 Text(text = "Let's Go!")
             }
-        }
+
     }
 }
 

@@ -18,7 +18,7 @@ import com.example.calmpulse.ui.theme.CalmPulseTheme
 
 @Composable
 fun SecondWelcomeScreen(modifier: Modifier = Modifier, onNavigate: () -> Unit){
-    MaterialTheme {
+
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -36,7 +36,7 @@ fun SecondWelcomeScreen(modifier: Modifier = Modifier, onNavigate: () -> Unit){
             Button(onClick = { onNavigate() }) {
                 Text(text = "Next")
             }
-        }
+
     }
 }
 
