@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun WelcomeScreen1(modifier: Modifier){
+fun FirstWelcomeScreen(modifier: Modifier){
     MaterialTheme {
         Column(
             modifier = Modifier
@@ -31,7 +31,7 @@ fun WelcomeScreen1(modifier: Modifier){
                 fontSize = 24.sp,
                 modifier = Modifier.padding(bottom = 24.dp)
             )
-            Button(onClick = { /* Perform action */ }) {
+            Button(onClick = {  }) {
                 Text(text = "Next")
             }
         }
@@ -41,5 +41,5 @@ fun WelcomeScreen1(modifier: Modifier){
 @Preview(showBackground = true)
 @Composable
 fun PreviewWelcomeScreen() {
-    WelcomeScreen1(modifier = Modifier)
+    FirstWelcomeScreen(modifier = Modifier)
 }

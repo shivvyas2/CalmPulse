@@ -11,7 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.calmpulse.ui.WelcomeScreen1
+import com.example.calmpulse.ui.FirstWelcomeScreen
 import com.example.calmpulse.ui.theme.CalmPulseTheme
 
 class MainActivity : ComponentActivity() {
@@ -21,7 +21,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             CalmPulseTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    WelcomeScreen1(
+                    FirstWelcomeScreen(
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
