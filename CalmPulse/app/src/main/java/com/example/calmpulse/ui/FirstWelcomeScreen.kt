@@ -10,14 +10,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.calmpulse.ui.theme.CalmPulseTheme
 
 @Composable
-fun FirstWelcomeScreen(modifier: Modifier){
+fun FirstWelcomeScreen(modifier: Modifier = Modifier, onNavigate: () -> Unit){
     MaterialTheme {
         Column(
             modifier = Modifier
@@ -33,7 +33,7 @@ fun FirstWelcomeScreen(modifier: Modifier){
                 fontSize = 24.sp,
                 modifier = Modifier.padding(bottom = 24.dp)
             )
-            Button(onClick = { }) {
+            Button(onClick = { onNavigate() }) {
                 Text(text = "Next")
 
             }
@@ -45,7 +45,7 @@ fun FirstWelcomeScreen(modifier: Modifier){
 @Composable
 fun PreviewWelcomeScreen() {
      CalmPulseTheme {
-        FirstWelcomeScreen(modifier = Modifier)
+        FirstWelcomeScreen(modifier = Modifier, onNavigate = {} )
     }
 
 }

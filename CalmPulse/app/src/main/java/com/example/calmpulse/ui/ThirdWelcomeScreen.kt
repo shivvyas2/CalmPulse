@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun ThirdWelcomeScreen(modifier: Modifier){
+fun ThirdWelcomeScreen(modifier: Modifier = Modifier){
 
     MaterialTheme {
         Column(
@@ -28,7 +28,7 @@ fun ThirdWelcomeScreen(modifier: Modifier){
 
 
             Text(
-                text = "Inhale Peace, Exhale Stress",
+                text = "Unleash Your Inner Calm",
                 fontSize = 24.sp,
                 modifier = Modifier.padding(bottom = 24.dp)
             )
