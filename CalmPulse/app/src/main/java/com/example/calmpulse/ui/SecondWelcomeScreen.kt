@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.calmpulse.ui.theme.CalmPulseTheme
 
 @Composable
 fun SecondWelcomeScreen(modifier: Modifier){
@@ -42,5 +43,7 @@ fun SecondWelcomeScreen(modifier: Modifier){
 @Preview(showBackground = true)
 @Composable
 fun PreviewSecondWelcomeScreen() {
-    SecondWelcomeScreen(modifier = Modifier)
+    CalmPulseTheme {
+        SecondWelcomeScreen(modifier = Modifier)
+    }
 }
