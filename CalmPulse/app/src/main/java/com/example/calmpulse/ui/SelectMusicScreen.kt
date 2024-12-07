@@ -18,18 +18,24 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+// Data Class for MusicItem
+data class MusicItem(
+    val title: String,
+    val duration: String,
+    val icon: androidx.compose.ui.graphics.vector.ImageVector
+)
+
 @Composable
 fun SelectMusic(
     onBackClick: () -> Unit = {},
-    onMenuClick: () -> Unit = {}
+    onMenuClick: () -> Unit = {},
+    onSelectClick: (MusicItem?) -> Unit = {}
 ) {
     val backgroundColor = Color(0xFFF5F5F5)
     val accentColor = Color(0xFFDBE681)
@@ -44,101 +50,129 @@ fun SelectMusic(
         MusicItem("Night Lofi Playlist", "30:30", Icons.Default.Mic),
     )
 
+    var selectedMusic by remember { mutableStateOf<MusicItem?>(null) }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(backgroundColor)
     ) {
-        Card(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(16.dp),
-            shape = RoundedCornerShape(24.dp),
-            colors = CardDefaults.cardColors(containerColor = Color.White)
+        Column(
+            modifier = Modifier.fillMaxSize()
         ) {
-            Column(
+            Card(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .padding(24.dp)
+                    .weight(1f)
+                    .padding(16.dp),
+                shape = RoundedCornerShape(24.dp),
+                colors = CardDefaults.cardColors(containerColor = Color.White)
             ) {
-                // Top Bar
-                Row(
+                Column(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 32.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
+                        .fillMaxSize()
+                        .padding(24.dp)
                 ) {
-                    // Back Button (Circle)
-                    IconButton(
-                        onClick = onBackClick,
+                    // Top Bar
+                    Row(
                         modifier = Modifier
-                            .size(40.dp)
-                            .clip(CircleShape)
-                            .background(Color.White)
+                            .fillMaxWidth()
+                            .padding(bottom = 32.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Back", tint = textColor)
-                    }
-
-                    // Menu Button with Accent Outline
-                    Box(
-                        modifier = Modifier
-                            .size(40.dp)
-                            .clip(CircleShape)
-                            .border(2.dp, accentColor, CircleShape)
-                            .clickable { onMenuClick() },
-                        contentAlignment = Alignment.Center
-                    ) {
-                        // Placeholder for a menu icon, can replace with "more_vert"
-                        Icon(
-                            Icons.Default.Mic,
-                            contentDescription = "Menu",
-                            tint = textColor,
-                            modifier = Modifier.size(20.dp)
-                        )
-                    }
-                }
-
-                // Title
-                Text(
-                    text = "Discover Serenity\n& Chill Audio",
-                    fontSize = 24.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = textColor,
-                    modifier = Modifier.padding(bottom = 24.dp)
-                )
-
-                // Categories
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 24.dp),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    categoryList.forEach { category ->
-                        CategoryChip(
-                            text = category,
-                            isSelected = (category == selectedCategory),
-                            accentColor = accentColor,
-                            textColor = textColor
+                        // Back Button (Circle)
+                        IconButton(
+                            onClick = onBackClick,
+                            modifier = Modifier
+                                .size(40.dp)
+                                .clip(CircleShape)
+                                .background(Color.White)
                         ) {
-                            selectedCategory = category
+                            Icon(Icons.Default.ArrowBack, contentDescription = "Back", tint = textColor)
+                        }
+
+                        // Menu Button with Accent Outline
+                        Box(
+                            modifier = Modifier
+                                .size(40.dp)
+                                .clip(CircleShape)
+                                .border(2.dp, accentColor, CircleShape)
+                                .clickable { onMenuClick() },
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Icon(
+                                Icons.Default.Mic,
+                                contentDescription = "Menu",
+                                tint = textColor,
+                                modifier = Modifier.size(20.dp)
+                            )
+                        }
+                    }
+
+                    // Title
+                    Text(
+                        text = "Discover Serenity\n& Chill Audio",
+                        fontSize = 24.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = textColor,
+                        modifier = Modifier.padding(bottom = 24.dp)
+                    )
+
+                    // Categories
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(bottom = 24.dp),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        categoryList.forEach { category ->
+                            CategoryChip(
+                                text = category,
+                                isSelected = (category == selectedCategory),
+                                accentColor = accentColor,
+                                textColor = textColor
+                            ) {
+                                selectedCategory = category
+                            }
+                        }
+                    }
+
+                    // Music Grid
+                    LazyVerticalGrid(
+                        columns = GridCells.Fixed(2),
+                        verticalArrangement = Arrangement.spacedBy(24.dp),
+                        horizontalArrangement = Arrangement.spacedBy(16.dp),
+                        modifier = Modifier.weight(1f)
+                    ) {
+                        items(musicItems) { item ->
+                            MusicItemCard(item, accentColor, selectedMusic == item) {
+                                selectedMusic = if (selectedMusic == item) null else item
+                            }
                         }
                     }
                 }
+            }
 
-                // Music Grid
-                LazyVerticalGrid(
-                    columns = GridCells.Fixed(2),
-                    verticalArrangement = Arrangement.spacedBy(24.dp),
-                    horizontalArrangement = Arrangement.spacedBy(16.dp),
-                    modifier = Modifier.fillMaxSize()
-                ) {
-                    items(musicItems) { item ->
-                        MusicItemCard(item, accentColor)
-                    }
-                }
+            // Select Button
+            Button(
+                onClick = { onSelectClick(selectedMusic) },
+                enabled = selectedMusic != null,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp)
+                    .height(56.dp),
+                shape = RoundedCornerShape(28.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = if (selectedMusic != null) accentColor else Color.Gray,
+                    contentColor = Color.Black
+                )
+            ) {
+                Text(
+                    text = "Select",
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = 16.sp
+                )
             }
         }
     }
@@ -175,33 +209,28 @@ fun CategoryChip(
     }
 }
 
-data class MusicItem(
-    val title: String,
-    val duration: String,
-    val icon: androidx.compose.ui.graphics.vector.ImageVector
-)
-
 @Composable
 fun MusicItemCard(
     item: MusicItem,
-    accentColor: Color
+    accentColor: Color,
+    isSelected: Boolean,
+    onClick: () -> Unit
 ) {
-    // Placeholder image: just a circle with a background color
-    // Adjust size and spacing to match design
     Column(
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+            .clickable { onClick() }
     ) {
         Box(
             modifier = Modifier
                 .size(120.dp)
                 .clip(CircleShape)
-                .background(Color.LightGray),
+                .background(if (isSelected) accentColor else Color.LightGray),
             contentAlignment = Alignment.BottomStart
         ) {
-            // Icon Overlay (Bottom-Left)
             Box(
                 modifier = Modifier
-                    .offset(x = 8.dp, y = (-8).dp) // Move up inside the circle
+                    .offset(x = 8.dp, y = (-8).dp)
                     .size(32.dp)
                     .clip(CircleShape)
                     .background(Color.White.copy(alpha = 0.9f))
@@ -239,9 +268,10 @@ fun MusicItemCard(
     }
 }
 
-
 @Preview(showBackground = true)
 @Composable
 fun PreviewSelectMusic() {
-    SelectMusic()
+    SelectMusic(onSelectClick = { selectedItem ->
+        println("Selected Item: $selectedItem")
+    })
 }
