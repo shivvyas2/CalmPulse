@@ -1,6 +1,6 @@
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.android.application) version "8.6.0"
+    alias(libs.plugins.kotlin.android) version "1.9.0"
 }
 
 android {
