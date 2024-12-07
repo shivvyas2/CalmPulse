@@ -33,6 +33,11 @@ fun CalmPulse(){
         composable("Login"){
             Login()
         }
+        composable("SelectBreathingExercise"){
+            ThirdWelcomeScreen(
+                onNavigate = {navController.navigate("SelectBreathingExercise")}
+            )
+        }
     }
 
 }
