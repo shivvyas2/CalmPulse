@@ -31,8 +31,16 @@ fun CalmPulse(){
             )
         }
         composable("Login"){
-            Login()
+            Login(
+                navController = navController
+            )
+        }
+        composable("CreateAccount"){
+            CreateAccount(
+                navController = navController
+            )
         }
     }
 
 }
+
