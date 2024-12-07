@@ -30,6 +30,7 @@ fun CalmPulse(){
                 onNavigate = {navController.navigate("Login")}
             )
         }
+        
         composable("Login"){
             Login()
         }
