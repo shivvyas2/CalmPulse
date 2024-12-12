@@ -30,6 +30,7 @@ fun CalmPulse(){
                 onNavigate = {navController.navigate("Login")}
             )
         }
+        
         composable("Login"){
             Login(
                 navController = navController
@@ -38,6 +39,11 @@ fun CalmPulse(){
         composable("CreateAccount"){
             CreateAccount(
                 navController = navController
+            )
+        }
+        composable("SelectBreathingExercise"){
+            ThirdWelcomeScreen(
+                onNavigate = {navController.navigate("SelectBreathingExercise")}
             )
         }
     }
