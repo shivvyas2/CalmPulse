@@ -98,6 +98,7 @@ fun CreateAccount(navController: NavController, modifier: Modifier = Modifier) {
         Button(
             onClick = {
                 createAccountButtonColor = Color(0xFF90EE90)
+                navController.navigate("SelectBreathingExercise")
             },
             modifier = Modifier
                 .fillMaxWidth()

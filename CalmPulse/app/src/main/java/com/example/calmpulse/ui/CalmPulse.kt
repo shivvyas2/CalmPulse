@@ -6,15 +6,15 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 
-@Composable
-fun CalmPulse(){
 
+@Composable
+fun CalmPulse() {
     val navController = rememberNavController()
 
     NavHost(
         navController = navController,
         startDestination = "FirstWelcomeScreen"
-    ){
+    ) {
         composable("FirstWelcomeScreen") {
             FirstWelcomeScreen(
                 onNavigate = { navController.navigate("SecondWelcomeScreen") }
@@ -25,28 +25,41 @@ fun CalmPulse(){
                 onNavigate = { navController.navigate("ThirdWelcomeScreen") }
             )
         }
-        composable("ThirdWelcomeScreen"){
+        composable("ThirdWelcomeScreen") {
             ThirdWelcomeScreen(
-                onNavigate = {navController.navigate("Login")}
+                onNavigate = { navController.navigate("Login") }
             )
         }
-        
-        composable("Login"){
+        composable("Login") {
             Login(
                 navController = navController
             )
         }
-        composable("CreateAccount"){
+        composable("CreateAccount") {
             CreateAccount(
                 navController = navController
             )
         }
-        composable("SelectBreathingExercise"){
-            ThirdWelcomeScreen(
-                onNavigate = {navController.navigate("SelectBreathingExercise")}
+        composable("SelectBreathingExercise") {
+            SelectBreathingExercise(
+                context = LocalContext.current,
+                onBackClick = { navController.popBackStack() },
+                onConfirmTrack = {
+                    navController.navigate("SelectMusic")
+                }
+            )
+        }
+        composable("SelectMusic") {
+            SelectMusicScreen(
+                onBackClick = { navController.popBackStack() },
+                onMenuClick = { /* Handle menu click */ },
+                onSelectClick = { selectedItem ->
+                    // Handle the selected music item
+                    navController.popBackStack() // Or navigate to the next screen
+                }
             )
         }
     }
-
 }
+
 
