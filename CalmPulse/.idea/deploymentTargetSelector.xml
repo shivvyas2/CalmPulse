@@ -13,12 +13,14 @@
         </DropdownSelection>
         <DialogSelection />
       </SelectionState>
+
       <SelectionState runConfigName="PreviewSelectBreathingExercise">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
       <SelectionState runConfigName="PreviewSelectMusic">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
+
     </selectionStates>
   </component>
 </project>

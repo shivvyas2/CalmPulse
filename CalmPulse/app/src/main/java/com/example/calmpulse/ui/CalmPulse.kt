@@ -32,7 +32,14 @@ fun CalmPulse(){
         }
         
         composable("Login"){
-            Login()
+            Login(
+                navController = navController
+            )
+        }
+        composable("CreateAccount"){
+            CreateAccount(
+                navController = navController
+            )
         }
         composable("SelectBreathingExercise"){
             ThirdWelcomeScreen(
@@ -42,3 +49,4 @@ fun CalmPulse(){
     }
 
 }
+

@@ -24,11 +24,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -36,11 +34,12 @@ import com.example.calmpulse.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Login(navController: NavController, modifier: Modifier = Modifier) {
+fun CreateAccount(navController: NavController, modifier: Modifier = Modifier) {
+    val username = remember { mutableStateOf("") }
     val email = remember { mutableStateOf("") }
     val password = remember { mutableStateOf("") }
 
-    var joinButtonColor by remember { mutableStateOf(Color(0xFFF3F7FA)) }
+    var createAccountButtonColor by remember { mutableStateOf(Color(0xFFF3F7FA)) }
 
     Column(
         modifier = Modifier
@@ -57,16 +56,25 @@ fun Login(navController: NavController, modifier: Modifier = Modifier) {
                 .size(150.dp)
         )
         Text(
-            text = "Calm Pulse",
+            text = "Create Account",
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(bottom = 24.dp)
         )
         Text(
-            text = "Hey, Enter your details to enjoy this beautiful app",
-            fontSize = 12.sp,
+            text = "Please enter your details to create an account",
+            fontSize = 16.sp,
             color = Color(0xFFBBC0CC),
             modifier = Modifier.padding(bottom = 24.dp)
+        )
+        TextField(
+            value = username.value,
+            onValueChange = { username.value = it },
+            label = { Text("Username") },
+            modifier = Modifier
+                .padding(bottom = 16.dp)
+                .background(Color.White, shape = RoundedCornerShape(8.dp)),
+            colors = TextFieldDefaults.textFieldColors(containerColor = Color.Transparent)
         )
         TextField(
             value = email.value,
@@ -74,7 +82,7 @@ fun Login(navController: NavController, modifier: Modifier = Modifier) {
             label = { Text("Email") },
             modifier = Modifier
                 .padding(bottom = 16.dp)
-                .background(Color.White, shape = RoundedCornerShape(16.dp)),
+                .background(Color.White, shape = RoundedCornerShape(8.dp)),
             colors = TextFieldDefaults.textFieldColors(containerColor = Color.Transparent)
         )
         TextField(
@@ -88,34 +96,16 @@ fun Login(navController: NavController, modifier: Modifier = Modifier) {
             visualTransformation = PasswordVisualTransformation()
         )
         Button(
-            onClick = { 
-                joinButtonColor = Color(0xFF90EE90)
+            onClick = {
+                createAccountButtonColor = Color(0xFF90EE90)
             },
             modifier = Modifier
-                .padding(bottom = 16.dp)
                 .fillMaxWidth()
                 .height(48.dp),
             shape = RoundedCornerShape(8.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = joinButtonColor)
-        ) {
-            Text(text = "Join Now", color = Color.Black)
-        }
-        Button(
-            onClick = { navController.navigate("CreateAccount") },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(48.dp),
-            shape = RoundedCornerShape(8.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF3F7FA))
+            colors = ButtonDefaults.buttonColors(containerColor = createAccountButtonColor)
         ) {
             Text(text = "Create Account", color = Color.Black)
         }
     }
 }
-
-@Preview(showBackground = true)
-@Composable
-fun PreviewLogin() {
-    Login()
-}
-
