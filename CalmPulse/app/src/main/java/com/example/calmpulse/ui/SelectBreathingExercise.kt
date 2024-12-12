@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -19,7 +20,7 @@ import com.example.calmpulse.R
 @Composable
 fun SelectBreathingExerciseWithAudio(
     onBackClick: () -> Unit = {},
-    onConfirmTrack: (Int?) -> Unit = {}, // Callback to confirm the selected track
+    onConfirmTrack: (Int?) -> Unit = {}, // Callback to handle confirmed track
     context: Context
 ) {
     val backgroundColor = Color(0xFFF5F5F5)
@@ -33,7 +34,6 @@ fun SelectBreathingExerciseWithAudio(
         "Panic Audio" to R.raw.panic_audio
     )
 
-    var selectedTrack by remember { mutableStateOf<Int?>(null) }
     var previewingTrack by remember { mutableStateOf<Int?>(null) }
     var mediaPlayer by remember { mutableStateOf<MediaPlayer?>(null) }
     var isPlayingPreview by remember { mutableStateOf(false) }
@@ -51,7 +51,11 @@ fun SelectBreathingExerciseWithAudio(
         ) {
             // Top bar
             IconButton(onClick = onBackClick) {
-                Icon(Icons.Default.ArrowBack, contentDescription = "Back", tint = textColor)
+                Icon(
+                    Icons.AutoMirrored.Filled.ArrowBack, // Updated to AutoMirrored
+                    contentDescription = "Back",
+                    tint = textColor
+                )
             }
 
             // Title
