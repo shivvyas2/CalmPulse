@@ -9,10 +9,15 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.calmpulse.ui.theme.LightGreen
 
+
 @OptIn(ExperimentalMaterial3Api::class)
+
+
+
 @Composable
 fun CalmPulse() {
     val navController = rememberNavController()
+
 
     Scaffold(
         topBar = { 
@@ -58,5 +63,9 @@ fun CalmPulse() {
              }
          }
      }
+
+ 
+
 }
+
 
