@@ -29,11 +29,11 @@ import androidx.compose.ui.text.font.FontWeight
 import com.example.calmpulse.R
 
 @Composable
-fun FirstWelcomeScreen(modifier: Modifier = Modifier, onNavigate: () -> Unit){
+fun FirstWelcomeScreen(onNavigate: () -> Unit, showToolbar: Boolean = true){
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(16.dp)
+                .padding(0.dp)
                 .background(LightGreen),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
@@ -76,7 +76,7 @@ fun FirstWelcomeScreen(modifier: Modifier = Modifier, onNavigate: () -> Unit){
 @Composable
 fun PreviewWelcomeScreen() {
      CalmPulseTheme {
-        FirstWelcomeScreen(modifier = Modifier, onNavigate = {} )
+        FirstWelcomeScreen(onNavigate = {} )
     }
 
 }

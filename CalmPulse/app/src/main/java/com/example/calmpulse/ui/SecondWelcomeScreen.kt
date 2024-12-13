@@ -28,6 +28,7 @@ fun SecondWelcomeScreen(modifier: Modifier = Modifier, onNavigate: () -> Unit) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
     ) {
+
         Image(
             painter = painterResource(id = com.example.calmpulse.R.drawable.image_2),
             contentDescription = "Welcome Image 2",
@@ -38,7 +39,7 @@ fun SecondWelcomeScreen(modifier: Modifier = Modifier, onNavigate: () -> Unit) {
         )
         Image(
             painter = painterResource(id = R.drawable.stepper_2),
-            contentDescription = "Stepper Image 2",
+            contentDescription = "Stepper Image 3",
             modifier = Modifier
                 .width(100.dp)
                 .height(80.dp)
