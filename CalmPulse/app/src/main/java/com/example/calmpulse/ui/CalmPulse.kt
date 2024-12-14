@@ -57,7 +57,9 @@ fun CalmPulse(context: Context) {
                 ProfileScreen(
                     onBreatheClick = { navController.navigate("SelectBreathingExercise") },
                     onExploreClick = { navController.navigate("ExploreScreen") },
-                    onSessionClick = { navController.navigate("SessionScreen") }
+                    onSessionClick = { navController.navigate("SessionScreen") },
+                    onNotificationClick = { navController.navigate("NotificationScreen") },
+                    onActivityClick = { navController.navigate("ActivityScreen") }
 
                 )
             }
@@ -106,7 +108,17 @@ fun CalmPulse(context: Context) {
             composable("SessionScreen") {
                 SessionScreen(onBackClick = {  navController.popBackStack()  })
             }
+
+            // Session Screen
+            composable("NotificationScreen") {
+                NotificationScreen(onBackClick = {  navController.popBackStack()  })
+            }
+            composable("ActivityScreen") {
+                ActivityScreen(onBackClick = { navController.popBackStack() }, onSettingsClick = { navController.navigate("ProfileScreen") })
+            }
         }
         }
+
+
 
     }
