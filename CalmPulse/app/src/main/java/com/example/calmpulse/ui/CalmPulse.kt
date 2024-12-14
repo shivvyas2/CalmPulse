@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -82,12 +83,16 @@ fun CalmPulse(context: Context) {
             // Select Music Screen
             composable("SelectMusic") {
                 SelectMusic(
+                    context = LocalContext.current, // Provide the context here
                     onBackClick = { navController.popBackStack() },
-                    onMenuClick = {
-                        // Handle menu click, if needed
+                    onMenuClick = { /* Handle menu actions here */ },
+                    onMusicSelected = { selectedMusic ->
+                        // Handle the selected music, e.g., navigate to the next screen
+                        navController.navigate("NextScreen")
                     }
                 )
             }
         }
-    }
+        }
+
 }

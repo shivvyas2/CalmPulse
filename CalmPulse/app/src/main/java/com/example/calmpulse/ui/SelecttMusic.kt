@@ -1,4 +1,4 @@
-import android.media.AudioManager
+import android.content.Context
 import android.media.MediaPlayer
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -17,38 +17,41 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.calmpulse.R
 
-// Data Class for MusicItem
+// Updated MusicItem class to include raw resource ID
 data class MusicItem(
     val title: String,
     val duration: String,
     val icon: androidx.compose.ui.graphics.vector.ImageVector,
-    val audioUrl: String
+    val audioResId: Int // Raw resource ID for the audio
 )
 
 @Composable
 fun SelectMusic(
+    context: Context,
     onBackClick: () -> Unit = {},
-    onMenuClick: () -> Unit = {}
+    onMenuClick: () -> Unit = {},
+    onMusicSelected: (MusicItem) -> Unit = {} // Callback to send selected music to the next screen
 ) {
     val backgroundColor = Color(0xFFF5F5F5)
     val accentColor = Color(0xFFDBE681)
     val textColor = Color.Black
 
-    // Music items
+    // Hardcoded music items with raw resources
     val musicItems = listOf(
-        MusicItem("Calm Audio", "30:00", Icons.Default.MusicNote, "https://www.example.com/calm_audio.mp3"),
-        MusicItem("Focus Audio", "30:00", Icons.Default.Eco, "https://www.example.com/focus_audio.mp3"),
-        MusicItem("Meditate Audio", "30:00", Icons.Default.Bolt, "https://www.example.com/meditate_audio.mp3"),
-        MusicItem("Panic Audio", "30:00", Icons.Default.Mic, "https://www.example.com/panic_audio.mp3")
+        MusicItem("Calm Audio", "2:00", Icons.Default.MusicNote, R.raw.calm_audio),
+        MusicItem("Focus Audio", "3:00", Icons.Default.MusicNote, R.raw.focus_audio),
+        MusicItem("Meditate Audio", "2:00", Icons.Default.MusicNote, R.raw.meditate_audio),
+        MusicItem("Panic Audio", "2:30", Icons.Default.MusicNote, R.raw.panic_audio)
     )
 
+    var previewingMusic by remember { mutableStateOf<MusicItem?>(null) }
     var selectedMusic by remember { mutableStateOf<MusicItem?>(null) }
     var mediaPlayer by remember { mutableStateOf<MediaPlayer?>(null) }
-    var isPlaying by remember { mutableStateOf(false) }
+    var isPlayingPreview by remember { mutableStateOf(false) }
 
     DisposableEffect(Unit) {
         // Clean up MediaPlayer on exit
@@ -113,46 +116,55 @@ fun SelectMusic(
                         modifier = Modifier.weight(1f)
                     ) {
                         items(musicItems) { item ->
-                            MusicItemCard(item, accentColor, selectedMusic == item) {
-                                selectedMusic = if (selectedMusic == item) null else item
+                            MusicItemCard(item, accentColor, previewingMusic == item) {
+                                if (isPlayingPreview && previewingMusic == item) {
+                                    // Stop playback if the same music is tapped again
+                                    mediaPlayer?.stop()
+                                    mediaPlayer?.release()
+                                    mediaPlayer = null
+                                    isPlayingPreview = false
+                                    previewingMusic = null
+                                } else {
+                                    // Play the preview of the selected music
+                                    mediaPlayer?.stop()
+                                    mediaPlayer?.release()
+                                    previewingMusic = item
+                                    mediaPlayer = MediaPlayer.create(context, item.audioResId).apply {
+                                        start()
+                                        isPlayingPreview = true
+                                        setOnCompletionListener {
+                                            isPlayingPreview = false
+                                            previewingMusic = null
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
                 }
             }
 
-            // Select & Play Button
+            // Select & Confirm Button
             Button(
                 onClick = {
-                    mediaPlayer?.stop()
-                    mediaPlayer?.release()
-
-                    selectedMusic?.audioUrl?.let { url ->
-                        mediaPlayer = MediaPlayer().apply {
-                            setAudioStreamType(AudioManager.STREAM_MUSIC)
-                            setDataSource(url)
-                            prepare()
-                            start()
-                            setOnCompletionListener {
-                                isPlaying = false
-                            }
-                        }
-                        isPlaying = true
+                    if (previewingMusic != null) {
+                        selectedMusic = previewingMusic
+                        onMusicSelected(selectedMusic!!)
                     }
                 },
-                enabled = selectedMusic != null && !isPlaying,
+                enabled = previewingMusic != null,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp)
                     .height(56.dp),
                 shape = RoundedCornerShape(28.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = if (selectedMusic != null && !isPlaying) accentColor else Color.Gray,
+                    containerColor = if (previewingMusic != null) accentColor else Color.Gray,
                     contentColor = Color.Black
                 )
             ) {
                 Text(
-                    text = if (isPlaying) "Playing..." else "Play Selected",
+                    text = if (previewingMusic != null) "Confirm Selection" else "Select Music",
                     fontWeight = FontWeight.SemiBold,
                     fontSize = 16.sp
                 )
@@ -208,10 +220,4 @@ fun MusicItemCard(
             color = Color.Black
         )
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun PreviewSelectMusic() {
-    SelectMusic()
 }
