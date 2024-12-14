@@ -34,14 +34,6 @@ fun BreathingScreen(navController: NavController, audioResId: Int) {
     var isPlaying by remember { mutableStateOf(true) }
     var targetProgress by remember { mutableStateOf(if (isBreatheIn) 0f else 1f) }
     var mediaPlayer by remember { mutableStateOf<MediaPlayer?>(null) }
-    var navigateToQuote by remember { mutableStateOf(false) }
-
-    // Navigate to QuoteScreen when the timer ends
-    if (navigateToQuote) {
-        LaunchedEffect(Unit) {
-            navController.navigate("QuoteScreen")
-        }
-    }
 
     // MediaPlayer setup
     DisposableEffect(audioResId) {
@@ -85,14 +77,14 @@ fun BreathingScreen(navController: NavController, audioResId: Int) {
     }
 
     val overallTimer = remember {
-        object : CountDownTimer(180000, 1000) { // Adjust the total time as needed
+        object : CountDownTimer(180000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 totalTimeLeft = (millisUntilFinished / 1000).toInt()
             }
 
             override fun onFinish() {
-                // Navigate to QuoteScreen when timer finishes
-                navigateToQuote = true
+                totalTimeLeft = 0
+                navController.navigate("PositiveQuote")
             }
         }
     }
@@ -239,6 +231,21 @@ fun BreathingScreen(navController: NavController, audioResId: Int) {
             Spacer(modifier = Modifier.height(24.dp))
 
             // Button leading to ProfileScreen
+            Button(
+                onClick = { navController.navigate("QuoteScreen") },
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFDBE681)),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(50.dp)
+            ) {
+                Text(
+                    text = "Need Inspiration?",
+                    color = Color.Black,
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+            Spacer(modifier = Modifier.height(16.dp))
             Button(
                 onClick = { navController.navigate("ProfileScreen") },
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFDBE681)),
