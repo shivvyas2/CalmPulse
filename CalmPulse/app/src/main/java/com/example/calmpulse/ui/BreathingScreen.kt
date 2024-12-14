@@ -1,6 +1,7 @@
 package com.example.calmpulse.ui
 
 import android.graphics.Color.rgb
+import android.media.MediaPlayer
 import android.os.CountDownTimer
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
@@ -17,6 +18,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -24,41 +26,42 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
 @Composable
-fun BreathingScreen(navController: NavController) {
+fun BreathingScreen(navController: NavController, audioResId: Int) {
     // State variables
     var isBreatheIn by remember { mutableStateOf(true) }
-
-
-    //Times for inhale and exhale/ Overall exercise remaining in seconds
-    var timeLeft by remember { mutableStateOf(4) } //
-    var totalTimeLeft by remember { mutableStateOf(180) } //
-
-
-    // Progress indicators
-    var exerciseProgress by remember { mutableStateOf(1f) }
-
-    //for audio playback
+    var timeLeft by remember { mutableStateOf(4) }
+    var totalTimeLeft by remember { mutableStateOf(180) }
     var isPlaying by remember { mutableStateOf(true) }
     var targetProgress by remember { mutableStateOf(if (isBreatheIn) 0f else 1f) }
+    var mediaPlayer by remember { mutableStateOf<MediaPlayer?>(null) }
 
-    // Start the animation when the composable is first launched.
-    // We use LaunchedEffect to trigger the animation only once at the beginning.
-    LaunchedEffect(isBreatheIn) {
-        targetProgress = if (isBreatheIn) 1f else 0f
+    // MediaPlayer setup
+    DisposableEffect(audioResId) {
+        mediaPlayer = MediaPlayer.create(navController.context, audioResId).apply {
+            isLooping = true
+            start()
+        }
+        onDispose {
+            mediaPlayer?.stop()
+            mediaPlayer?.release()
+            mediaPlayer = null
+        }
     }
 
-    // Smooth animation for the progress indicator
+    // Progress animations
     val animatedProgress by animateFloatAsState(
         targetValue = targetProgress,
         animationSpec = tween(
-            // set to 4 seconds for both inhale and exhale to match the timer
             durationMillis = 4000,
             easing = LinearOutSlowInEasing
         )
     )
 
+    LaunchedEffect(isBreatheIn) {
+        targetProgress = if (isBreatheIn) 1f else 0f
+    }
 
-    /////////////////////////// Timer for inhale/exhale /////////////////////////////////////////
+    // Timers
     val breathTimer = remember {
         object : CountDownTimer(4000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
@@ -66,33 +69,26 @@ fun BreathingScreen(navController: NavController) {
             }
 
             override fun onFinish() {
-                // Toggle between inhale and exhale
                 isBreatheIn = !isBreatheIn
-                // Reset time for next cycle (4 seconds)
                 timeLeft = 4
-                // Restart the breath timer for the next cycle
                 start()
             }
         }
     }
 
-    ///////////////////////////////////// Timer for the overall exercise /////////////////////////////////////////
     val overallTimer = remember {
-        object : CountDownTimer(180000, 1000) { // 3 minutes total
+        object : CountDownTimer(180000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 totalTimeLeft = (millisUntilFinished / 1000).toInt()
-                exerciseProgress = millisUntilFinished / 180000f
             }
 
             override fun onFinish() {
                 totalTimeLeft = 0
-                exerciseProgress = 0f
-                navController.navigate("PositiveQuote") // Navigate to PositiveQuote page
+                navController.navigate("PositiveQuote")
             }
         }
     }
 
-    // Start the timers when the composable is first launched and cancel them when the composable is removed from the screen
     DisposableEffect(Unit) {
         breathTimer.start()
         overallTimer.start()
@@ -102,7 +98,7 @@ fun BreathingScreen(navController: NavController) {
         }
     }
 
-//////////////////////////////////////Start of the UI Layout//////////////////////////////////////
+    // UI layout
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -111,10 +107,11 @@ fun BreathingScreen(navController: NavController) {
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
         ) {
-
-            ////////////////////// Title for either "Breathe In" or "Breathe Out"//////////////////////
+            // Title
             Text(
                 text = if (isBreatheIn) "Breathe In" else "Breathe Out",
                 fontSize = 28.sp,
@@ -124,123 +121,142 @@ fun BreathingScreen(navController: NavController) {
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            //////////////////////Timer Countdown for inhale/exhale//////////////////////
+            // Timer
             Text(
-                text = "00:0${timeLeft}",
-                fontSize = 25.sp,
+                text = String.format("00:%02d", timeLeft),
+                fontSize = 18.sp,
                 fontWeight = FontWeight.Normal,
                 color = Color.Gray
             )
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            /////////////////// Circular progress indicator and Icon in the middle //////////////////////////////////////
+            // Circular Progress Indicator (Larger Circle)
             Box(
-                modifier = Modifier.size(200.dp),
+                modifier = Modifier
+                    .size(300.dp) // Increase the size of the circle
+                    .padding(16.dp),
                 contentAlignment = Alignment.Center
             ) {
                 CircularProgressIndicator(
                     progress = animatedProgress,
-                    // Green for inhale, red for exhale
                     color = if (isBreatheIn) Color(0xFFB0E57C) else Color(0xFFFF8A80),
-                    strokeWidth = 12.dp,
-                    modifier = Modifier.size(200.dp)
+                    strokeWidth = 16.dp, // Slightly thicker stroke
+                    modifier = Modifier.size(280.dp) // Adjust the progress indicator size
                 )
                 Icon(
                     imageVector = Icons.Default.Bolt,
                     contentDescription = null,
-                    tint = Color(rgb(245,211,227)),
-                    modifier = Modifier.size(70.dp)
+                    tint = Color(rgb(245, 211, 227)),
+                    modifier = Modifier.size(80.dp) // Increase the size of the icon
                 )
             }
 
-
-
-
             Spacer(modifier = Modifier.height(24.dp))
 
-
-
-            /////////////////////////// Total exercise time left with its progress bar///////////////////////////
+            // Total Time Remaining
             Text(
                 text = "Time Remaining: ${totalTimeLeft / 60}:${String.format("%02d", totalTimeLeft % 60)}",
-                fontSize = 25.sp,
+                fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.Black
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
-
-            LinearProgressIndicator(
-                progress = exerciseProgress,
-                color = Color(rgb(92,100,249)),
-                modifier = Modifier
-                    .fillMaxWidth(0.8f)
-                    .height(8.dp)
-            )
-
             Spacer(modifier = Modifier.height(24.dp))
 
-
-            ///////////////////////////// Playback controls for audio//////////////////////////////////
+            // Playback controls with waveform
             Row(
                 modifier = Modifier
-                    .padding(horizontal = 16.dp)
+                    .fillMaxWidth()
                     .background(
                         color = Color(0xFFF0F0F0),
                         shape = RoundedCornerShape(16.dp)
                     )
-                    .fillMaxWidth()
-                    .height(60.dp),
+                    .padding(16.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                IconButton(onClick = { isPlaying = !isPlaying }) {
+                IconButton(onClick = {
+                    if (isPlaying) {
+                        mediaPlayer?.pause()
+                    } else {
+                        mediaPlayer?.start()
+                    }
+                    isPlaying = !isPlaying
+                }) {
                     Box(
                         modifier = Modifier
-                            .size(65.dp)
-                            .background(
-                                color = Color(0xFF000000),
-                                shape = CircleShape
-                            ),
+                            .size(60.dp)
+                            .background(Color(0xFFDBE681), CircleShape),
                         contentAlignment = Alignment.Center
                     ) {
                         Icon(
                             imageVector = if (isPlaying) Icons.Default.Pause else Icons.Default.PlayArrow,
                             contentDescription = null,
                             tint = Color.White,
-                            modifier = Modifier.size(24.dp)
+                            modifier = Modifier.size(30.dp)
                         )
                     }
                 }
-                Spacer(modifier = Modifier.width(8.dp))
 
+                Spacer(modifier = Modifier.width(16.dp))
 
-
-                //////////////////// // Visualization bar for audio source////////////////////////////
-
+                // Waveform visualization (static representation)
                 Box(
                     modifier = Modifier
                         .weight(1f)
-                        .height(4.dp)
-                        .background(Color.LightGray, shape = RoundedCornerShape(2.dp))
-                )
+                        .height(40.dp)
+                        .clip(RoundedCornerShape(8.dp))
+                        .background(Color(0xFFEAEAEA)),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Row(
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        repeat(20) { index ->
+                            Box(
+                                modifier = Modifier
+                                    .width(4.dp)
+                                    .height((1..30).random().dp) // Randomize bar heights
+                                    .background(
+                                        if (index % 2 == 0) Color(0xFF000000) else Color(0xFFB0B0B0)
+                                    )
+                            )
+                        }
+                    }
+                }
             }
-
 
             Spacer(modifier = Modifier.height(24.dp))
 
-
-
-
-            /////////////////////////// Complete Workout Button//////////////////////////////////
+            // Button leading to ProfileScreen
             Button(
-                onClick = { navController.navigate("PositiveQuote") },
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF000000))
+                onClick = { navController.navigate("QuoteScreen") },
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFDBE681)),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(50.dp)
             ) {
                 Text(
-                    text = "Complete Workout",
-                    color = Color.White,
-                    fontSize = 30.sp,
+                    text = "Need Inspiration?",
+                    color = Color.Black,
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+            Spacer(modifier = Modifier.height(16.dp))
+            Button(
+                onClick = { navController.navigate("ProfileScreen") },
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFDBE681)),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(50.dp)
+            ) {
+                Text(
+                    text = "Go to Profile",
+                    color = Color.Black,
+                    fontSize = 18.sp,
                     fontWeight = FontWeight.Bold
                 )
             }
