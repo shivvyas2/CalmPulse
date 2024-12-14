@@ -36,6 +36,7 @@ fun CreateAccount(navController: NavController) {
     ) { paddingValues ->
         // Main content
         Column(
+
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues) // Apply padding to avoid overlap with the toolbar

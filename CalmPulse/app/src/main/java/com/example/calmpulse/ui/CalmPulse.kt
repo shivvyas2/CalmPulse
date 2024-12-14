@@ -1,11 +1,13 @@
 package com.example.calmpulse.ui
 
-import SelectBreathingExercise
+import SelectBreathingExerciseScreen
 import SelectMusic
+import android.content.Context
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -13,59 +15,84 @@ import com.example.calmpulse.ui.theme.LightGreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CalmPulse() {
+fun CalmPulse(context: Context) {
     val navController = rememberNavController()
 
     Scaffold(
-        topBar = { 
-            CommonToolbar(navController, title = "Calm Pulse", toolbarColor = LightGreen) // Set to LightGreen
+        topBar = {
+            CommonToolbar(
+                navController = navController,
+                title = "Your App Title",
+                toolbarColor = LightGreen
+            )
         }
     ) { paddingValues ->
-         NavHost(
-             navController = navController,
-             startDestination = "FirstWelcomeScreen",
-             Modifier.padding(paddingValues) // Apply padding to avoid overlap with the toolbar
-         ) {
+        NavHost(
+            navController = navController,
+            startDestination = "FirstWelcomeScreen",
+            Modifier.padding(paddingValues)
+        ) {
 
-             composable("FirstWelcomeScreen") {
-                 FirstWelcomeScreen(
-                     onNavigate = { navController.navigate("SecondWelcomeScreen") }
-                 )
-             }
-             composable("SecondWelcomeScreen") {
-                 SecondWelcomeScreen(
-                     onNavigate = { navController.navigate("ThirdWelcomeScreen") }
-                 )
-             }
-             composable("ThirdWelcomeScreen") {
-                 ThirdWelcomeScreen(
-                     onNavigate = { navController.navigate("Login") }
-                 )
-             }
+            // First Welcome Screen
+            composable("FirstWelcomeScreen") {
+                FirstWelcomeScreen(
+                    onNavigate = { navController.navigate("SecondWelcomeScreen") }
+                )
+            }
 
-             composable("Login") {
-                 Login(
-                     navController = navController
-                 )
-             }
-             composable("CreateAccount") {
-                 CreateAccount(
-                     navController = navController
-                 )
-             }
-             composable("SelectBreathingExercise") {
+            // Second Welcome Screen
+            composable("SecondWelcomeScreen") {
+                SecondWelcomeScreen(
+                    onNavigate = { navController.navigate("ThirdWelcomeScreen") }
+                )
+            }
 
-                    SelectBreathingExercise(
-                        navController = navController
-                    )
-             }
-             // Add the composable for the SelectMusic screen
-                composable("SelectMusic") {
-                    SelectMusic(
-                        navController = navController
-                    )
-                }
-         }
-     }
+            // Third Welcome Screen
+            composable("ThirdWelcomeScreen") {
+                ThirdWelcomeScreen(
+                    onNavigate = { navController.navigate("SelectBreathingExercise") }
+                )
+            }
+
+            // Login Screen
+            composable("Login") {
+                Login(
+                    navController = navController
+                )
+            }
+
+            // Create Account Screen
+            composable("CreateAccount") {
+                CreateAccount(
+                    navController = navController
+                )
+            }
+
+            // Select Breathing Exercise Screen
+            composable("SelectBreathingExercise") {
+                SelectBreathingExerciseScreen(
+                    onBackClick = { navController.popBackStack() },
+                    onConfirmTrack = { selectedTrack ->
+                        // Navigate to the next screen after confirming the track
+                        navController.navigate("SelectMusic")
+                    },
+                    context = context
+                )
+            }
+
+            // Select Music Screen
+            composable("SelectMusic") {
+                SelectMusic(
+                    context = LocalContext.current, // Provide the context here
+                    onBackClick = { navController.popBackStack() },
+                    onMenuClick = { /* Handle menu actions here */ },
+                    onMusicSelected = { selectedMusic ->
+                        // Handle the selected music, e.g., navigate to the next screen
+                        navController.navigate("NextScreen")
+                    }
+                )
+            }
+        }
+        }
+
 }
-
