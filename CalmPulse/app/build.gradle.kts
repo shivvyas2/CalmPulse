@@ -1,6 +1,9 @@
 plugins {
     alias(libs.plugins.android.application) version "8.7.3"
     alias(libs.plugins.kotlin.android) version "1.9.0"
+    id("com.google.gms.google-services")
+
+
 }
 
 android {
@@ -64,6 +67,11 @@ dependencies {
     implementation(libs.androidx.leanback)
     implementation(libs.androidx.compose.material)
     implementation(libs.androidx.compose.material.icons.extended)
+    implementation(platform("com.google.firebase:firebase-bom:33.7.0"))
+    implementation("com.google.firebase:firebase-analytics")
+    implementation(libs.firebase.auth.ktx)
+    
+
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

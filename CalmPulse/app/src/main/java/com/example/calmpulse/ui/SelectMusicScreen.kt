@@ -40,8 +40,7 @@ fun SelectMusic(
     onBackClick: () -> Unit = {},
     onMenuClick: () -> Unit = {},
     onSelectClick: (MusicItem?) -> Unit = {},
-    navController: NavHostController,
-
+    navController: NavHostController
 ) {
     val backgroundColor = Color(0xFFF5F5F5)
     val accentColor = Color(0xFFDBE681)
@@ -162,9 +161,7 @@ fun SelectMusic(
 
             // Select Button
             Button(
-                // Add onClick to navigate to the breathing exercise screen
-                onClick = { onSelectClick(selectedMusic)
-                    navController.navigate("BreathingExercise") },
+                onClick = { onSelectClick(selectedMusic) },
                 enabled = selectedMusic != null,
                 modifier = Modifier
                     .fillMaxWidth()
