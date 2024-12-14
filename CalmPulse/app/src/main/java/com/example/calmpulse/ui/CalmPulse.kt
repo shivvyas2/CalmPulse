@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -18,15 +17,12 @@ import androidx.navigation.compose.rememberNavController
 fun CalmPulse(context: Context) {
     val navController = rememberNavController()
 
-    Scaffold(
-
-    ) { paddingValues ->
+    Scaffold() { paddingValues ->
         NavHost(
             navController = navController,
             startDestination = "FirstWelcomeScreen", // Starting point
             Modifier.padding(paddingValues)
         ) {
-
             // First Welcome Screen
             composable("FirstWelcomeScreen") {
                 FirstWelcomeScreen(
@@ -50,12 +46,25 @@ fun CalmPulse(context: Context) {
 
             // Login Screen
             composable("Login") {
-                Login(navController = navController)
+                Login(
+                    navController = navController
+                )
             }
 
             // Create Account (SignUp) Screen
             composable("CreateAccount") {
-                CreateAccount(navController = navController)
+                CreateAccount(
+                    navController = navController
+                )
+            }
+
+            // Profile Screen
+            composable("ProfileScreen") {
+                ProfileScreen(
+                    onBreatheClick = {
+                        navController.navigate("SelectBreathingExercise")
+                    }
+                )
             }
 
             // Select Breathing Exercise Screen
@@ -72,12 +81,11 @@ fun CalmPulse(context: Context) {
             // Select Music Screen
             composable("SelectMusic") {
                 SelectMusic(
-                    context = LocalContext.current,
+                    context = context,
                     onBackClick = { navController.popBackStack() },
                     onMenuClick = { /* Handle menu actions */ },
-                    onMusicSelected = { selectedMusic ->
-                        // After selecting music, navigate to BreathingScreen
-                        navController.navigate("BreathingScreen")
+                    onMusicSelected = {
+                        navController.navigate("BreathingScreen") // Navigate to BreathingScreen after selecting music
                     }
                 )
             }

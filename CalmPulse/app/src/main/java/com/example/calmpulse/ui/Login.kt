@@ -172,7 +172,7 @@ fun Login(
                                 if (task.isSuccessful) {
                                     Toast.makeText(context, "Login successful!", Toast.LENGTH_SHORT)
                                         .show()
-                                    navController.navigate("SelectBreathingExercise")
+                                    navController.navigate("ProfileScreen")
                                 } else {
                                     Toast.makeText(
                                         context,
