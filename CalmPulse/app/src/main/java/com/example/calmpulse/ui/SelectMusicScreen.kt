@@ -273,10 +273,10 @@ fun MusicItemCard(
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun PreviewSelectMusic() {
-    SelectMusic(onSelectClick = { selectedItem ->
-        println("Selected Item: $selectedItem")
-    }, navController = navController)
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun PreviewSelectMusic() {
+//    SelectMusic(onSelectClick = { selectedItem ->
+//        println("Selected Item: $selectedItem")
+//    }, navController = navController)
+//}

@@ -146,8 +146,11 @@ fun SelectBreathingExercise(
 
                 // Start Button
                 Button(
-                    // navigate to breathing exercise screen
-                    onClick = { navController.navigate("BreathingExercise") },
+                    // navigate to music selection screen
+                    onClick = {
+                        onNavigate()
+                        navController.navigate("SelectMusic")
+                    },
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(56.dp)
