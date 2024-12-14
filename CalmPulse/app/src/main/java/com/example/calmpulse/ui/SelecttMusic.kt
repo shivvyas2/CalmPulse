@@ -1,5 +1,6 @@
 import android.content.Context
 import android.media.MediaPlayer
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -9,24 +10,26 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.calmpulse.R
 
-// Updated MusicItem class to include raw resource ID
+// Updated MusicItem class to include imageResId for the image
 data class MusicItem(
     val title: String,
     val duration: String,
-    val icon: androidx.compose.ui.graphics.vector.ImageVector,
-    val audioResId: Int // Raw resource ID for the audio
+    val audioResId: Int, // Raw resource ID for the audio
+    val imageResId: Int // Drawable resource ID for the image
 )
 
 @Composable
@@ -40,36 +43,12 @@ fun SelectMusic(
     val accentColor = Color(0xFFDBE681)
     val textColor = Color.Black
 
-    // Hardcoded music items with raw resources
+    // Hardcoded music items with raw resources and images
     val musicItems = listOf(
-        com.example.calmpulse.model.MusicItem(
-            "Calm Audio",
-            "2:00",
-            Icons.Default.MusicNote,
-            R.raw.calm_audio,
-            R.drawable.calm_image
-        ),
-        com.example.calmpulse.model.MusicItem(
-            "Focus Audio",
-            "3:00",
-            Icons.Default.MusicNote,
-            R.raw.focus_audio,
-            R.drawable.focus_image
-        ),
-        com.example.calmpulse.model.MusicItem(
-            "Meditate Audio",
-            "2:00",
-            Icons.Default.MusicNote,
-            R.raw.meditate_audio,
-            R.drawable.meditate_image
-        ),
-        com.example.calmpulse.model.MusicItem(
-            "Panic Audio",
-            "2:30",
-            Icons.Default.MusicNote,
-            R.raw.panic_audio,
-            R.drawable.panic_image
-        )
+        MusicItem("Calm Audio", "2:00", R.raw.calm_audio, R.drawable.calm_image),
+        MusicItem("Focus Audio", "3:00", R.raw.focus_audio, R.drawable.focus_image),
+        MusicItem("Meditate Audio", "2:00", R.raw.meditate_audio, R.drawable.meditate_image),
+        MusicItem("Panic Audio", "2:30", R.raw.panic_audio, R.drawable.panic_image)
     )
 
     var previewingMusic by remember { mutableStateOf<MusicItem?>(null) }
@@ -214,13 +193,14 @@ fun MusicItemCard(
                 .size(120.dp)
                 .clip(CircleShape)
                 .background(if (isSelected) accentColor else Color.LightGray),
-            contentAlignment = Alignment.BottomStart
+            contentAlignment = Alignment.Center
         ) {
-            Icon(
-                item.icon,
-                contentDescription = null,
-                tint = Color.Black,
-                modifier = Modifier.size(32.dp)
+            Image(
+                painter = painterResource(id = item.imageResId),
+                contentDescription = item.title,
+                modifier = Modifier
+                    .size(100.dp)
+                    .clip(CircleShape)
             )
         }
 
