@@ -1,5 +1,6 @@
 package com.example.calmpulse.ui
 
+import BreathingExercise
 import SelectBreathingExerciseScreen
 import SelectMusic
 
@@ -89,7 +90,7 @@ fun CalmPulse(context: Context) {
                     onBackClick = { navController.popBackStack() },
                     onMenuClick = { /* Handle menu actions */ },
                     onMusicSelected = {
-                        navController.navigate("BreathingScreen") // Navigate to BreathingScreen after selecting music
+                        navController.navigate("BreathingExercise") // Navigate to BreathingScreen after selecting music
                     }
                 )
             }
@@ -100,6 +101,9 @@ fun CalmPulse(context: Context) {
             }
             composable("ExploreScreen") {
                 ExploreScreen(onBackClick = { navController.popBackStack() })
+            }
+            composable("BreathingExercise") {
+                BreathingExercise(navController = navController)
             }
         }
 
