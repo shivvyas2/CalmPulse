@@ -1,4 +1,4 @@
-#Calm Pulse 
+# Calm Pulse 
 
 ### Team Members: Cristian Bolanos, Shiv Amitkumar, Lavanya Nallabelli
 
