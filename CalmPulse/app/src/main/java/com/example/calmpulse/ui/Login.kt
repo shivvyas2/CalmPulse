@@ -67,11 +67,11 @@ fun Login(
             ) {
                 // Logo
                 Image(
-                    painter = painterResource(id = R.drawable.logo_mark),
-                    contentDescription = "Logo Mark",
+                    painter = painterResource(id = R.drawable.logo),
+                    contentDescription = "Logo",
                     modifier = Modifier
-                        .padding(bottom = 24.dp)
-                        .size(120.dp)
+                        .padding(bottom = 10.dp)
+                        .size(100.dp)
                 )
 
                 // Title
@@ -83,13 +83,7 @@ fun Login(
                     modifier = Modifier.padding(bottom = 16.dp)
                 )
 
-                // Subtitle
-                Text(
-                    text = "Hey, Enter your details to enjoy this beautiful app",
-                    fontSize = 14.sp,
-                    color = Color(0xFFBBC0CC),
-                    modifier = Modifier.padding(bottom = 32.dp)
-                )
+
 
                 // Email Input Field
                 TextField(
