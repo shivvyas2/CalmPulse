@@ -9,10 +9,13 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Bolt
-import androidx.compose.material.icons.filled.Eco
-import androidx.compose.material.icons.filled.Mic
-import androidx.compose.material.icons.filled.MusicNote
+
+import androidx.compose.material.icons.filled.Face
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Menu
+
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -23,6 +26,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 
 // Data Class for MusicItem
 data class MusicItem(
@@ -35,7 +39,8 @@ data class MusicItem(
 fun SelectMusic(
     onBackClick: () -> Unit = {},
     onMenuClick: () -> Unit = {},
-    onSelectClick: (MusicItem?) -> Unit = {}
+    onSelectClick: (MusicItem?) -> Unit = {},
+    navController: NavHostController
 ) {
     val backgroundColor = Color(0xFFF5F5F5)
     val accentColor = Color(0xFFDBE681)
@@ -44,10 +49,10 @@ fun SelectMusic(
     var selectedCategory by remember { mutableStateOf("All") }
 
     val musicItems = listOf(
-        MusicItem("Ghibli Medley Piano", "30:30", Icons.Default.MusicNote),
-        MusicItem("Peace", "30:30", Icons.Default.Eco),
-        MusicItem("Conspersa Prometheum", "30:30", Icons.Default.Bolt),
-        MusicItem("Night Lofi Playlist", "30:30", Icons.Default.Mic),
+        MusicItem("Ghibli Medley Piano", "30:30", Icons.Default.Face),
+        MusicItem("Peace", "30:30", Icons.Default.Favorite),
+        MusicItem("Conspersa Prometheum", "30:30", Icons.Default.Person),
+        MusicItem("Night Lofi Playlist", "30:30", Icons.Default.ShoppingCart),
     )
 
     var selectedMusic by remember { mutableStateOf<MusicItem?>(null) }
@@ -101,7 +106,7 @@ fun SelectMusic(
                             contentAlignment = Alignment.Center
                         ) {
                             Icon(
-                                Icons.Default.Mic,
+                                Icons.Default.Menu,
                                 contentDescription = "Menu",
                                 tint = textColor,
                                 modifier = Modifier.size(20.dp)
@@ -273,5 +278,5 @@ fun MusicItemCard(
 fun PreviewSelectMusic() {
     SelectMusic(onSelectClick = { selectedItem ->
         println("Selected Item: $selectedItem")
-    })
+    }, navController = navController)
 }

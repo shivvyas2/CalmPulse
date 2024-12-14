@@ -146,7 +146,8 @@ fun SelectBreathingExercise(
 
                 // Start Button
                 Button(
-                    onClick = onStartClick,
+                    // navigate to breathing exercise screen
+                    onClick = { navController.navigate("BreathingExercise") },
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(56.dp)
