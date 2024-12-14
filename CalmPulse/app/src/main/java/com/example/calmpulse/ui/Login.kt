@@ -71,7 +71,9 @@ fun Login(
                     contentDescription = "Logo",
                     modifier = Modifier
                         .padding(bottom = 10.dp)
-                        .size(100.dp)
+
+                        .size(80.dp)
+
                 )
 
                 // Title
