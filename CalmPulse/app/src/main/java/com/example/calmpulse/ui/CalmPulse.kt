@@ -2,6 +2,7 @@ package com.example.calmpulse.ui
 
 import SelectBreathingExerciseScreen
 import SelectMusic
+
 import android.content.Context
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.*
@@ -11,7 +12,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.calmpulse.ui.theme.LightGreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -19,17 +19,11 @@ fun CalmPulse(context: Context) {
     val navController = rememberNavController()
 
     Scaffold(
-        topBar = {
-            CommonToolbar(
-                navController = navController,
-                title = "Your App Title",
-                toolbarColor = LightGreen
-            )
-        }
+
     ) { paddingValues ->
         NavHost(
             navController = navController,
-            startDestination = "FirstWelcomeScreen",
+            startDestination = "FirstWelcomeScreen", // Starting point
             Modifier.padding(paddingValues)
         ) {
 
@@ -50,31 +44,26 @@ fun CalmPulse(context: Context) {
             // Third Welcome Screen
             composable("ThirdWelcomeScreen") {
                 ThirdWelcomeScreen(
-                    onNavigate = { navController.navigate("SelectBreathingExercise") }
+                    onNavigate = { navController.navigate("Login") }
                 )
             }
 
             // Login Screen
             composable("Login") {
-                Login(
-                    navController = navController
-                )
+                Login(navController = navController)
             }
 
-            // Create Account Screen
+            // Create Account (SignUp) Screen
             composable("CreateAccount") {
-                CreateAccount(
-                    navController = navController
-                )
+                CreateAccount(navController = navController)
             }
 
             // Select Breathing Exercise Screen
             composable("SelectBreathingExercise") {
                 SelectBreathingExerciseScreen(
                     onBackClick = { navController.popBackStack() },
-                    onConfirmTrack = { selectedTrack ->
-                        // Navigate to the next screen after confirming the track
-                        navController.navigate("SelectMusic")
+                    onConfirmTrack = {
+                        navController.navigate("SelectMusic") // Navigate to SelectMusic after selecting track
                     },
                     context = context
                 )
@@ -83,16 +72,20 @@ fun CalmPulse(context: Context) {
             // Select Music Screen
             composable("SelectMusic") {
                 SelectMusic(
-                    context = LocalContext.current, // Provide the context here
+                    context = LocalContext.current,
                     onBackClick = { navController.popBackStack() },
-                    onMenuClick = { /* Handle menu actions here */ },
+                    onMenuClick = { /* Handle menu actions */ },
                     onMusicSelected = { selectedMusic ->
-                        // Handle the selected music, e.g., navigate to the next screen
-                        navController.navigate("NextScreen")
+                        // After selecting music, navigate to BreathingScreen
+                        navController.navigate("BreathingScreen")
                     }
                 )
             }
-        }
-        }
 
+            // Breathing Screen
+            composable("BreathingScreen") {
+                BreathingScreen()
+            }
+        }
+    }
 }
