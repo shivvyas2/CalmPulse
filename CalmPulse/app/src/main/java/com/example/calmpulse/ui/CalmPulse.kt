@@ -64,6 +64,10 @@ fun CalmPulse(context: Context) {
                     onBreatheClick = {
                         navController.navigate("SelectBreathingExercise")
                     }
+                    ,
+                    onExploreClick = {
+                        navController.navigate("ExploreScreen")
+                    }
                 )
             }
 
@@ -94,6 +98,10 @@ fun CalmPulse(context: Context) {
             composable("BreathingScreen") {
                 BreathingScreen()
             }
+            composable("ExploreScreen") {
+                ExploreScreen(onBackClick = { navController.popBackStack() })
+            }
         }
+
     }
 }
