@@ -42,10 +42,34 @@ fun SelectMusic(
 
     // Hardcoded music items with raw resources
     val musicItems = listOf(
-        MusicItem("Calm Audio", "2:00", Icons.Default.MusicNote, R.raw.calm_audio),
-        MusicItem("Focus Audio", "3:00", Icons.Default.MusicNote, R.raw.focus_audio),
-        MusicItem("Meditate Audio", "2:00", Icons.Default.MusicNote, R.raw.meditate_audio),
-        MusicItem("Panic Audio", "2:30", Icons.Default.MusicNote, R.raw.panic_audio)
+        com.example.calmpulse.model.MusicItem(
+            "Calm Audio",
+            "2:00",
+            Icons.Default.MusicNote,
+            R.raw.calm_audio,
+            R.drawable.calm_image
+        ),
+        com.example.calmpulse.model.MusicItem(
+            "Focus Audio",
+            "3:00",
+            Icons.Default.MusicNote,
+            R.raw.focus_audio,
+            R.drawable.focus_image
+        ),
+        com.example.calmpulse.model.MusicItem(
+            "Meditate Audio",
+            "2:00",
+            Icons.Default.MusicNote,
+            R.raw.meditate_audio,
+            R.drawable.meditate_image
+        ),
+        com.example.calmpulse.model.MusicItem(
+            "Panic Audio",
+            "2:30",
+            Icons.Default.MusicNote,
+            R.raw.panic_audio,
+            R.drawable.panic_image
+        )
     )
 
     var previewingMusic by remember { mutableStateOf<MusicItem?>(null) }

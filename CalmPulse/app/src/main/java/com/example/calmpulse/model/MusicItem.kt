@@ -2,10 +2,10 @@ package com.example.calmpulse.model
 
 import androidx.compose.ui.graphics.vector.ImageVector
 
-// Data class for representing a music item
 data class MusicItem(
-    val title: String,            // Title of the music track
-    val duration: String,         // Duration of the music track
-    val icon: ImageVector,        // Icon representing the track
-    val audioUrl: String          // URL for the audio file
+    val title: String,
+    val duration: String,
+    val icon: androidx.compose.ui.graphics.vector.ImageVector, // Keep if you want an optional icon
+    val audioResId: Int, // Raw resource ID for the audio
+    val imageResId: Int // Drawable resource ID for the image
 )
