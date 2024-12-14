@@ -29,7 +29,8 @@ import com.example.calmpulse.R
 @Composable
 fun ProfileScreen(
     onBreatheClick: () -> Unit,
-    onExploreClick: () -> Unit
+    onExploreClick: () -> Unit,
+    onSessionClick: () -> Unit
 ) {
     Scaffold(
         containerColor = Color(0xFFF9F9F9), // Background color for the screen
@@ -65,7 +66,7 @@ fun ProfileScreen(
                     GridItem("Notifications", Icons.Default.Notifications, Color(0xFFF3E5F5)),
                     GridItem("Activity", Icons.Default.List, Color(0xFFF5F5F5)),
                     GridItem("Breathe", Icons.Default.CheckCircle, Color(0xFFF5F5F5), onClick = onBreatheClick),
-                    GridItem("Sessions", Icons.Default.Star, Color(0xFFF5F5F5)),
+                    GridItem("Sessions", Icons.Default.Star, Color(0xFFF5F5F5), onClick = onSessionClick),
                     GridItem("Saved", Icons.Default.Bookmark, Color(0xFFF5F5F5)),
                     GridItem("Explore", Icons.Default.GridView, Color(0xFFF5F5F5), onClick = onExploreClick)
                 )
