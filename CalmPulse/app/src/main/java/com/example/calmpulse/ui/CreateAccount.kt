@@ -99,10 +99,18 @@ fun CreateAccount(navController: NavController) {
                 isError = !isUsernameValid.value,
                 colors = TextFieldDefaults.textFieldColors(
                     containerColor = Color.Transparent,
-                    focusedIndicatorColor = Color.Transparent,
+                    focusedIndicatorColor = if (!isUsernameValid.value) Color.Red else Color.Transparent,
                     unfocusedIndicatorColor = Color.Transparent
                 )
             )
+            if (!isUsernameValid.value) {
+                Text(
+                    text = "Username cannot be empty",
+                    color = Color.Red,
+                    fontSize = 12.sp,
+                    modifier = Modifier.padding(horizontal = 24.dp, vertical = 4.dp)
+                )
+            }
 
             // Email Input Field
             TextField(
@@ -111,7 +119,7 @@ fun CreateAccount(navController: NavController) {
                     email.value = it
                     isEmailValid.value = android.util.Patterns.EMAIL_ADDRESS.matcher(it).matches()
                 },
-                placeholder = { Text("Email", color = Color(0xFFBBC0CC)) },
+                placeholder = { Text("Email", color = Color(0x111111)) },
                 leadingIcon = {
                     Icon(
                         imageVector = Icons.Default.Email,
@@ -126,10 +134,18 @@ fun CreateAccount(navController: NavController) {
                 isError = !isEmailValid.value,
                 colors = TextFieldDefaults.textFieldColors(
                     containerColor = Color.Transparent,
-                    focusedIndicatorColor = Color.Transparent,
+                    focusedIndicatorColor = if (!isEmailValid.value) Color.Red else Color.Transparent,
                     unfocusedIndicatorColor = Color.Transparent
                 )
             )
+            if (!isEmailValid.value) {
+                Text(
+                    text = "Invalid email format",
+                    color = Color.Red,
+                    fontSize = 12.sp,
+                    modifier = Modifier.padding(horizontal = 24.dp, vertical = 4.dp)
+                )
+            }
 
             // Password Input Field
             TextField(
@@ -154,10 +170,18 @@ fun CreateAccount(navController: NavController) {
                 isError = !isPasswordValid.value,
                 colors = TextFieldDefaults.textFieldColors(
                     containerColor = Color.Transparent,
-                    focusedIndicatorColor = Color.Transparent,
+                    focusedIndicatorColor = if (!isPasswordValid.value) Color.Red else Color.Transparent,
                     unfocusedIndicatorColor = Color.Transparent
                 )
             )
+            if (!isPasswordValid.value) {
+                Text(
+                    text = "Password must be at least 6 characters",
+                    color = Color.Red,
+                    fontSize = 12.sp,
+                    modifier = Modifier.padding(horizontal = 24.dp, vertical = 4.dp)
+                )
+            }
 
             // Validation Error Message
             if (showErrorMessage) {
@@ -172,6 +196,11 @@ fun CreateAccount(navController: NavController) {
             // Create Account Button
             Button(
                 onClick = {
+                    // Perform final validation
+                    isUsernameValid.value = username.value.isNotEmpty()
+                    isEmailValid.value = android.util.Patterns.EMAIL_ADDRESS.matcher(email.value).matches()
+                    isPasswordValid.value = password.value.length >= 6
+
                     if (isUsernameValid.value && isEmailValid.value && isPasswordValid.value) {
                         firebaseAuth.createUserWithEmailAndPassword(
                             email.value.trim(),
