@@ -1,4 +1,7 @@
-# Team 1 - Final Project Proposal
+Calm Pulse 
+
+Calm Pulse is an application designed to promote wellness and well-being by providing guided breathing exercises inspired by the Apple Watch's popular breathing app. Breathing is a powerful and accessible technique for reducing stress, enhancing focus, and improving overall mental and physical health. With a few minutes of daily practice, users can experience benefits such as stress reduction, mood improvement, increased energy, and heightened focus.
+
 
 [Calm Pulse ](https://docs.google.com/document/d/1trbgePShqdI7tZUK6W-iPVXkXvEWQn_5E7LysWWdPug/edit?tab=t.0)
 
@@ -9,3 +12,4 @@
 [Calm Pulse Demo Video](https://drive.google.com/file/d/184bS2UqTuyuFw7mzTEpiNTuUlTwrR7Ir/view?usp=share_link)
 
 [Calm Pulse Documentation](https://tinyurl.com/2vsva3ew)
+
