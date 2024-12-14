@@ -1,5 +1,6 @@
 package com.example.calmpulse.ui
 
+import BreathingExercise
 import SelectBreathingExercise
 import SelectMusic
 import androidx.compose.foundation.layout.padding
@@ -63,6 +64,14 @@ fun CalmPulse() {
                 composable("SelectMusic") {
                     SelectMusic(
                         navController = navController
+                    )
+                }
+
+             // Add the composable for the BreathingExercise screen
+                composable("BreathingExercise") {
+                    BreathingExercise(
+                        navController = navController,
+
                     )
                 }
          }
