@@ -3,7 +3,6 @@ package com.example.calmpulse.ui
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
@@ -18,6 +17,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
 import com.example.calmpulse.R
 
@@ -33,6 +34,9 @@ fun Login(
     val isPasswordValid = remember { mutableStateOf(true) }
     var showErrorMessage by remember { mutableStateOf(false) }
 
+    // To handle soft keyboard interactions
+    val keyboardController = LocalSoftwareKeyboardController.current
+
     Scaffold(
         containerColor = Color(0xFFF5F5F5), // Set background color for the entire screen
     ) { paddingValues ->
@@ -40,7 +44,8 @@ fun Login(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
-                .background(Color.White),
+                .background(Color.White)
+                .imePadding(), // Adjust padding when the keyboard is visible
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
@@ -138,6 +143,7 @@ fun Login(
             // Join Now Button
             Button(
                 onClick = {
+                    keyboardController?.hide() // Hide keyboard on button press
                     if (isEmailValid.value && isPasswordValid.value) {
                         navController.navigate("SelectBreathingExercise")
                     } else {
@@ -161,7 +167,10 @@ fun Login(
 
             // Create Account Button
             Button(
-                onClick = { navController.navigate("CreateAccount") },
+                onClick = {
+                    keyboardController?.hide() // Hide keyboard on button press
+                    navController.navigate("CreateAccount")
+                },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 24.dp, vertical = 8.dp)
