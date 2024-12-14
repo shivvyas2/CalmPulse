@@ -6,4 +6,4 @@
 
 [Calm Pulse APK](https://drive.google.com/file/d/1TMw_IxeRT7bV_5Gw3HiC1KetgDU3W1zX/view?usp=share_link)
 
-[Calm Pulse Demo Video](https://drive.google.com/file/d/1TMw_IxeRT7bV_5Gw3HiC1KetgDU3W1zX/view?usp=share_link)
+[Calm Pulse Demo Video](https://drive.google.com/file/d/184bS2UqTuyuFw7mzTEpiNTuUlTwrR7Ir/view?usp=share_link)
