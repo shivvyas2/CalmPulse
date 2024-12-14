@@ -22,3 +22,14 @@ Calm Pulse is an application designed to promote wellness and well-being by prov
 
 
 
+## Application View
+
+![Welcome Screen 1](Screenshoots/Screenshot 1.jpg)
+![Welcome Screen 2](Screenshoots/Screenshot 2.jpg)
+![Welcome Screen 3](Screenshoots/Screenshot 3.jpg)
+![Log in](Screenshoots/Screenshot 4.jpg)
+![Sign up](Screenshoots/Screenshot 5.jpg)
+![Profile](Screenshoots/Screenshot6.jpg)
+![Breathing Selection](Screenshoots/Screenshot 7.jpg)
+![Main Function](Screenshoots/Screenshot 8.jpg)
+![Positive Quote](Screenshoots/Screenshot 9.jpg)
