@@ -97,7 +97,7 @@ fun CalmPulse(context: Context) {
 
             // Breathing Screen
             composable("BreathingScreen") {
-                BreathingScreen()
+                BreathingScreen(navController = navController)
             }
             composable("ExploreScreen") {
                 ExploreScreen(onBackClick = { navController.popBackStack() })
