@@ -109,7 +109,7 @@ fun Login(
                     password.value = it
                     isPasswordValid.value = it.length >= 6
                 },
-                placeholder = { Text("Passcode", color = Color(0xFFBBC0CC)) },
+                placeholder = { Text("Password", color = Color(0xFFBBC0CC)) },
                 leadingIcon = {
                     Icon(
                         imageVector = Icons.Default.Lock,
