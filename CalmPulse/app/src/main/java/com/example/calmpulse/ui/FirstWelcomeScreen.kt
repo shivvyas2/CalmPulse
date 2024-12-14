@@ -33,7 +33,7 @@ fun FirstWelcomeScreen(modifier: Modifier = Modifier, onNavigate: () -> Unit){
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(16.dp)
+
                 .background(LightGreen),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
