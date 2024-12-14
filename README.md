@@ -19,25 +19,3 @@ Calm Pulse is an application designed to promote wellness and well-being by prov
 [Calm Pulse APK](https://drive.google.com/file/d/1TMw_IxeRT7bV_5Gw3HiC1KetgDU3W1zX/view?usp=share_link)
 
 [Calm Pulse Demo Video](https://drive.google.com/file/d/184bS2UqTuyuFw7mzTEpiNTuUlTwrR7Ir/view?usp=share_link)
-
-
-
-## Application View
-
-![Welcome Screen 1](Screenshots/Screenshot 1.png)
-
-![Welcome Screen 2](Screenshots/Screenshot 2.png)
-
-![Welcome Screen 3](Screenshots/Screenshot 3.png)
-
-![Log in](Screenshots/Screenshot 4.png)
-
-![Sign up](Screenshots/Screenshot 5.png)
-
-![Profile](Screenshots/Screenshot6.png)
-
-![Breathing Selection](Screenshots/Screenshot 7.png)
-
-![Main Function](Screenshots/Screenshot 8.png)
-
-![Positive Quote](Screenshots/Screenshot 9.png)
