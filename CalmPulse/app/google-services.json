@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "366564636514",
+    "project_id": "calmpulse-bdadb",
+    "storage_bucket": "calmpulse-bdadb.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:366564636514:android:cbc2b663d725bebd04de3b",
+        "android_client_info": {
+          "package_name": "com.example.calmpulse"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDArFvdVk931NxxPlWhdOHc85PW0DgfGnw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
