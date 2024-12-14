@@ -2,6 +2,8 @@
 
 [Calm Pulse ](https://docs.google.com/document/d/1trbgePShqdI7tZUK6W-iPVXkXvEWQn_5E7LysWWdPug/edit?tab=t.0)
 
-[CalmPulse Design](https://www.figma.com/design/S6QMQ49A0FnqNlDvL7SH45/CalmPulse?node-id=342-4851&t=vSFwpebMiFk6UHdj-1)
+[Calm Pulse Design](https://www.figma.com/design/S6QMQ49A0FnqNlDvL7SH45/CalmPulse?node-id=342-4851&t=vSFwpebMiFk6UHdj-1)
 
-[CalmPulse APK](https://drive.google.com/file/d/1TMw_IxeRT7bV_5Gw3HiC1KetgDU3W1zX/view?usp=share_link)
+[Calm Pulse APK](https://drive.google.com/file/d/1TMw_IxeRT7bV_5Gw3HiC1KetgDU3W1zX/view?usp=share_link)
+
+[Calm Pulse Demo Video](https://drive.google.com/file/d/1TMw_IxeRT7bV_5Gw3HiC1KetgDU3W1zX/view?usp=share_link)
