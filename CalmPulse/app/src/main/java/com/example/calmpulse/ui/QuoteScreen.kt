@@ -63,7 +63,7 @@ fun QuoteScreen(navController: NavController) {
 
             // Repeat Exercise Button
             Button(
-                onClick = { navController.navigate("BreathingScreen") }, // Navigate to BreathingScreen
+                onClick = { navController.navigate("SelectBreathingExercise") }, // Navigate to BreathingScreen
                 colors = ButtonDefaults.buttonColors(containerColor = Color.White),
                 shape = RoundedCornerShape(30.dp),
                 modifier = Modifier
