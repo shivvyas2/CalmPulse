@@ -1,7 +1,6 @@
 import android.media.AudioManager
 import android.media.MediaPlayer
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -27,19 +26,19 @@ data class MusicItem(
     val title: String,
     val duration: String,
     val icon: androidx.compose.ui.graphics.vector.ImageVector,
-    val audioUrl: String // Added audio URL
+    val audioUrl: String
 )
 
 @Composable
 fun SelectMusic(
     onBackClick: () -> Unit = {},
-    onMenuClick: () -> Unit = {},
-    onSelectClick: (MusicItem?) -> Unit = {}
+    onMenuClick: () -> Unit = {}
 ) {
     val backgroundColor = Color(0xFFF5F5F5)
     val accentColor = Color(0xFFDBE681)
     val textColor = Color.Black
 
+    // Music items
     val musicItems = listOf(
         MusicItem("Calm Audio", "30:00", Icons.Default.MusicNote, "https://www.example.com/calm_audio.mp3"),
         MusicItem("Focus Audio", "30:00", Icons.Default.Eco, "https://www.example.com/focus_audio.mp3"),
@@ -49,6 +48,16 @@ fun SelectMusic(
 
     var selectedMusic by remember { mutableStateOf<MusicItem?>(null) }
     var mediaPlayer by remember { mutableStateOf<MediaPlayer?>(null) }
+    var isPlaying by remember { mutableStateOf(false) }
+
+    DisposableEffect(Unit) {
+        // Clean up MediaPlayer on exit
+        onDispose {
+            mediaPlayer?.stop()
+            mediaPlayer?.release()
+            mediaPlayer = null
+        }
+    }
 
     Box(
         modifier = Modifier
@@ -112,7 +121,7 @@ fun SelectMusic(
                 }
             }
 
-            // Select Button
+            // Select & Play Button
             Button(
                 onClick = {
                     mediaPlayer?.stop()
@@ -124,22 +133,26 @@ fun SelectMusic(
                             setDataSource(url)
                             prepare()
                             start()
+                            setOnCompletionListener {
+                                isPlaying = false
+                            }
                         }
+                        isPlaying = true
                     }
                 },
-                enabled = selectedMusic != null,
+                enabled = selectedMusic != null && !isPlaying,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp)
                     .height(56.dp),
                 shape = RoundedCornerShape(28.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = if (selectedMusic != null) accentColor else Color.Gray,
+                    containerColor = if (selectedMusic != null && !isPlaying) accentColor else Color.Gray,
                     contentColor = Color.Black
                 )
             ) {
                 Text(
-                    text = "Play Selected",
+                    text = if (isPlaying) "Playing..." else "Play Selected",
                     fontWeight = FontWeight.SemiBold,
                     fontSize = 16.sp
                 )

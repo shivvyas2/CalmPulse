@@ -36,6 +36,7 @@ fun SelectBreathingExerciseScreen(
     var previewingTrack by remember { mutableStateOf<Int?>(null) }
     var mediaPlayer by remember { mutableStateOf<MediaPlayer?>(null) }
     var isPlayingPreview by remember { mutableStateOf(false) }
+    var isLoading by remember { mutableStateOf(false) }
 
     Box(
         modifier = Modifier
@@ -51,7 +52,7 @@ fun SelectBreathingExerciseScreen(
             // Top bar
             IconButton(onClick = onBackClick) {
                 Icon(
-                    Icons.AutoMirrored.Filled.ArrowBack, // Updated to AutoMirrored
+                    Icons.AutoMirrored.Filled.ArrowBack,
                     contentDescription = "Back",
                     tint = textColor
                 )
@@ -93,27 +94,48 @@ fun SelectBreathingExerciseScreen(
                         Button(
                             onClick = {
                                 if (isPlayingPreview && previewingTrack == trackResId) {
+                                    // Stop playback
                                     mediaPlayer?.stop()
                                     mediaPlayer?.release()
                                     mediaPlayer = null
                                     isPlayingPreview = false
                                     previewingTrack = null
                                 } else {
+                                    // Play new track
                                     mediaPlayer?.stop()
                                     mediaPlayer?.release()
+                                    isLoading = true
                                     previewingTrack = trackResId
                                     mediaPlayer = MediaPlayer.create(context, trackResId).apply {
-                                        start()
+                                        setOnPreparedListener {
+                                            start()
+                                            isPlayingPreview = true
+                                            isLoading = false
+                                        }
+                                        setOnCompletionListener {
+                                            isPlayingPreview = false
+                                            previewingTrack = null
+                                        }
+                                        setOnErrorListener { _, _, _ ->
+                                            isPlayingPreview = false
+                                            isLoading = false
+                                            previewingTrack = null
+                                            true // Return true to indicate the error was handled
+                                        }
                                     }
-                                    isPlayingPreview = true
                                 }
                             },
                             colors = ButtonDefaults.buttonColors(
                                 containerColor = if (previewingTrack == trackResId) accentColor else Color.LightGray
-                            )
+                            ),
+                            enabled = !isLoading // Disable button during loading
                         ) {
                             Text(
-                                text = if (previewingTrack == trackResId) "Stop" else "Preview",
+                                text = when {
+                                    isLoading && previewingTrack == trackResId -> "Loading..."
+                                    previewingTrack == trackResId -> "Stop"
+                                    else -> "Preview"
+                                },
                                 color = textColor
                             )
                         }
@@ -154,9 +176,8 @@ fun SelectBreathingExerciseScreen(
     }
 }
 
-
 @Preview(showBackground = true)
 @Composable
-fun PreviewSelectBreathingExerciseWithAudio() {
-
+fun PreviewSelectBreathingExercise() {
+    // No preview functionality for context-dependent elements
 }
