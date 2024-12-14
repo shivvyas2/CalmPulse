@@ -46,7 +46,7 @@ fun SecondWelcomeScreen(modifier: Modifier = Modifier, onNavigate: () -> Unit) {
                 .padding(bottom = 24.dp)
         )
         Text(
-            text = "Health is Wealth",
+            text = "Inhale Peace, Exhale Stress",
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(bottom = 24.dp)

@@ -45,7 +45,7 @@ fun ThirdWelcomeScreen(modifier: Modifier = Modifier, onNavigate: () -> Unit) {
                 .padding(bottom = 24.dp)
         )
         Text(
-            text = "Health is Wealth",
+            text = "Unleash Your Inner Peace",
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(bottom = 24.dp)
