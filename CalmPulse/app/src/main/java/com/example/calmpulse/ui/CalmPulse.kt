@@ -1,5 +1,6 @@
 package com.example.calmpulse.ui
 
+import SelectBreathingExercise
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -16,7 +17,7 @@ fun CalmPulse() {
 
     Scaffold(
         topBar = { 
-            CommonToolbar(navController, title = "Your App Title", toolbarColor = LightGreen) // Set to LightGreen
+            CommonToolbar(navController, title = "Calm Pulse", toolbarColor = LightGreen) // Set to LightGreen
         }
     ) { paddingValues ->
          NavHost(
@@ -52,9 +53,10 @@ fun CalmPulse() {
                  )
              }
              composable("SelectBreathingExercise") {
-                 ThirdWelcomeScreen(
-                     onNavigate = { navController.navigate("SelectBreathingExercise") }
-                 )
+                 // navigate to the SelectBreathingExercise screen
+                    SelectBreathingExercise(
+                        navController = navController
+                    )
              }
          }
      }

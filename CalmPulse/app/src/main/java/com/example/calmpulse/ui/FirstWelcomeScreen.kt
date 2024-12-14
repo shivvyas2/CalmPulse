@@ -33,11 +33,7 @@ fun FirstWelcomeScreen(onNavigate: () -> Unit, showToolbar: Boolean = true){
         Column(
             modifier = Modifier
                 .fillMaxSize()
-<<<<<<< HEAD
-
-=======
                 .padding(0.dp)
->>>>>>> 52834a9d71c136ab491c7db8ffa71ef20fae7374
                 .background(LightGreen),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,

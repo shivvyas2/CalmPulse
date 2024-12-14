@@ -17,11 +17,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 
 @Composable
 fun SelectBreathingExercise(
     onBackClick: () -> Unit = {},
-    onStartClick: () -> Unit = {}
+    onStartClick: () -> Unit = {},
+    onNavigate: () -> Unit = {},
+    navController: NavHostController
 ) {
     val backgroundColor = Color(0xFFF5F5F5)
     val accentColor = Color(0xFFDBE681)
@@ -209,8 +212,8 @@ private fun BreathingModeItem(
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun PreviewSelectBreathingExercise() {
-    SelectBreathingExercise()
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun PreviewSelectBreathingExercise() {
+//    SelectBreathingExercise(navController = navController)
+//}
