@@ -34,6 +34,14 @@ fun BreathingScreen(navController: NavController, audioResId: Int) {
     var isPlaying by remember { mutableStateOf(true) }
     var targetProgress by remember { mutableStateOf(if (isBreatheIn) 0f else 1f) }
     var mediaPlayer by remember { mutableStateOf<MediaPlayer?>(null) }
+    var navigateToQuote by remember { mutableStateOf(false) } // New state variable
+
+    // Navigate to QuoteScreen when the timer ends
+    if (navigateToQuote) {
+        LaunchedEffect(Unit) {
+            navController.navigate("QuoteScreen")
+        }
+    }
 
     // MediaPlayer setup
     DisposableEffect(audioResId) {
@@ -84,7 +92,7 @@ fun BreathingScreen(navController: NavController, audioResId: Int) {
 
             override fun onFinish() {
                 totalTimeLeft = 0
-                navController.navigate("PositiveQuote")
+                navigateToQuote = true // Set navigation flag when timer ends
             }
         }
     }
@@ -230,7 +238,7 @@ fun BreathingScreen(navController: NavController, audioResId: Int) {
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            // Button leading to ProfileScreen
+            // "Need Inspiration?" Button
             Button(
                 onClick = { navController.navigate("QuoteScreen") },
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFDBE681)),
@@ -245,7 +253,10 @@ fun BreathingScreen(navController: NavController, audioResId: Int) {
                     fontWeight = FontWeight.Bold
                 )
             }
+
             Spacer(modifier = Modifier.height(16.dp))
+
+            // "Go to Profile" Button
             Button(
                 onClick = { navController.navigate("ProfileScreen") },
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFDBE681)),
@@ -263,3 +274,4 @@ fun BreathingScreen(navController: NavController, audioResId: Int) {
         }
     }
 }
+
