@@ -1,8 +1,6 @@
 ## Calm Pulse
 ![Logo](CalmPulse/app/src/main/res/drawable/logo.png)
 
-### Team Members
-Cristian Bolanos, Shiv Amitkumar, Lavanya Nallabelli
 
 ## Description
 
@@ -85,3 +83,5 @@ License
 
 
 Built with ❤️ by the Calm Pulse team to promote wellness and mindfulness!
+### By
+Cristian Bolanos, Shiv Amitkumar, Lavanya Nallabelli
