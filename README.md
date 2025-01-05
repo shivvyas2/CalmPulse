@@ -1,9 +1,8 @@
 # Calm Pulse
+![Logo](CalmPulse/app/src/main/res/drawable/logo.png)
 
 ### Team Members
 Cristian Bolanos, Shiv Amitkumar, Lavanya Nallabelli
-
-![Logo](CalmPulse/app/src/main/res/drawable/logo.png)
 
 ## Description
 
