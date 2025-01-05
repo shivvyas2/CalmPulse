@@ -51,7 +51,7 @@ To install and run the app locally:
 
 1. Clone the repository:
    ```bash
-   git clone <repository-url>
+   git clone <https://github.com/shivvyas2/CalmPulse.git>
 2. Open the project in Android Studio.
 3. Sync the Gradle dependencies.
 4. Run the app on an emulator or physical device.
