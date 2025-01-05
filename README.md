@@ -1,4 +1,4 @@
- Calm Pulse
+## Calm Pulse
 ![Logo](CalmPulse/app/src/main/res/drawable/logo.png)
 
 ### Team Members
